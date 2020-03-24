@@ -1,9 +1,11 @@
 import React from "react";
 import "./App.css";
-import MainNav from "./components/Nav/Nav";
-import Home from "./components/Home/Home";
-import CustomCategory from "./components/CustomCategory/CustomCategory";
-import Error from "./components/Error/Error";
+import MainNav from "./components/Nav-main";
+import Home from "./components/Home";
+import CustomCollection from "./components/CustomCollection";
+import Collections from "./components/Collections/Collections";
+
+import Error from "./components/Error";
 
 import { Switch, Route } from "react-router-dom";
 
@@ -12,13 +14,16 @@ function App() {
     <div className="App">
       <h1>Heyoo</h1>
 
-      <MainNav />
+      <MainNav className="mainNav" />
+      <section>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/collections" exact component={Collections} />
 
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/cc/:collection" exact component={CustomCategory} />
-        <Route component={Error} />
-      </Switch>
+          <Route path="/cc/:collection" exact component={CustomCollection} />
+          <Route component={Error} />
+        </Switch>
+      </section>
     </div>
   );
 }

@@ -4,7 +4,7 @@ class DatatypeMenu extends Component {
   state = {};
   render() {
     return (
-      <div id="sidemenu" class="fieldTypes">
+      <div id="sidemenu" className="fieldTypes">
         <ul>
           <li onClick={this.props.addField("String")}>String</li>
           <li onClick={this.props.addField("Text")}>Text</li>

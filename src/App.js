@@ -28,7 +28,7 @@ function App() {
           <Route
             path="/cc/:collection"
             exact
-            component={CustomCollection.Create}
+            component={CustomCollection.Retrieve}
           />
           <Route component={Error} />
         </Switch>

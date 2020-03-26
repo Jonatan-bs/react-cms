@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import MainNav from "./components/Nav-main";
 import Home from "./components/Home";
-import CustomCollection from "./components/CustomCollection";
+import CustomCollection from "./components/CustomCollection/CustomCollection";
 import Collections from "./components/Collections/Collections";
 
 import Error from "./components/Error";
@@ -18,9 +18,18 @@ function App() {
       <section>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/collections" exact component={Collections} />
+          <Route path="/collections" exact component={Collections.Create} />
+          <Route
+            path="/collections/update/:id"
+            exact
+            component={Collections.Update}
+          />
 
-          <Route path="/cc/:collection" exact component={CustomCollection} />
+          <Route
+            path="/cc/:collection"
+            exact
+            component={CustomCollection.Create}
+          />
           <Route component={Error} />
         </Switch>
       </section>

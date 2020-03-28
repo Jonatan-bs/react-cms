@@ -41,7 +41,7 @@ export const image = (fieldData, getValue, setValue, index) => {
         key={fieldData.nameID}
         id={fieldData.nameID}
         onChange={setValue}
-        value={getValue}
+        file={getValue}
       ></input>
     </React.Fragment>
   );

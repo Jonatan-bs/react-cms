@@ -3,9 +3,14 @@ import { Link } from "react-router-dom";
 
 class Retrieve extends Component {
   state = { collection: [], ccData: [], rewriteObj: {}, fieldTypeObj: {} };
-  componentDidMount() {
-    const collection = this.props.match.params.collection;
 
+  updateState(props) {
+    let collection;
+    if (props) {
+      collection = props.match.params.collection;
+    } else {
+      collection = this.props.match.params.collection;
+    }
     Promise.all([
       fetch("http://localhost:4000/admin/cc/" + collection, {
         method: "post",
@@ -62,54 +67,62 @@ class Retrieve extends Component {
         this.setState({ collection, ccData, rewriteObj, fieldTypeObj });
       })
       .catch(err => console.log(err));
-
-    // fetch("http://localhost:4000/admin/cc/" + collection, {
-    //   method: "post",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     query: "",
-    //     fields: "",
-    //     options: null
-    //   })
-    // })
-    //   .then(response => response.json())
-    //   .then(collection => {
-    //     this.setState({ collection });
-    //   });
   }
-  render() {
+
+  componentWillReceiveProps(props) {
+    this.updateState(props);
+  }
+  componentDidMount() {
+    this.updateState();
+  }
+
+  Documents = props => {
     return this.state.collection.map((document, index) => {
       return (
-        <Link
-          to={"/cc/" + this.props.match.params.collection + "/" + document._id}
-        >
-          <div key={index}>
-            {Object.keys(document).map((label, index) =>
-              label === "_id" ? null : this.state.fieldTypeObj[label] ===
-                "image" ? (
-                <React.Fragment key={index}>
-                  <p>{this.state.rewriteObj[label]}</p>
-                  <img
-                    alt=""
-                    src={
-                      "http://localhost:4000/admin/uploads/" +
-                      document[label].filename
-                    }
-                  />
-                </React.Fragment>
-              ) : (
-                <React.Fragment key={index}>
-                  <p>{this.state.rewriteObj[label]}</p>
-                  <p>{document[label]}</p>
-                </React.Fragment>
-              )
-            )}{" "}
-          </div>
-        </Link>
+        <React.Fragment key={index}>
+          <Link
+            to={
+              "/cc/" + this.props.match.params.collection + "/" + document._id
+            }
+          >
+            <div key={index}>
+              {Object.keys(document).map((label, index) =>
+                label === "_id" ? null : this.state.fieldTypeObj[label] ===
+                  "image" ? (
+                  <React.Fragment key={index}>
+                    <p>{this.state.rewriteObj[label]}</p>
+                    <img
+                      alt=""
+                      src={
+                        "http://localhost:4000/admin/uploads/" +
+                        document[label].filename
+                      }
+                    />
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment key={index}>
+                    <p>{this.state.rewriteObj[label]}</p>
+                    <p>{document[label]}</p>
+                  </React.Fragment>
+                )
+              )}{" "}
+            </div>
+          </Link>
+        </React.Fragment>
       );
     });
+  };
+
+  render() {
+    return (
+      <React.Fragment>
+        <Link to={"/cc/" + this.props.match.params.collection + "/create"}>
+          <button>Add document</button>
+        </Link>
+
+        <this.Documents />
+      </React.Fragment>
+    );
   }
 }
 

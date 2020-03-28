@@ -30,6 +30,16 @@ function App() {
             exact
             component={CustomCollection.Retrieve}
           />
+          <Route
+            path="/cc/:collection/create"
+            exact
+            component={CustomCollection.Create}
+          />
+          <Route
+            path="/cc/:collection/:id"
+            exact
+            component={CustomCollection.Update}
+          />
           <Route component={Error} />
         </Switch>
       </section>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import InnerMenu from "./../innerMenu/innerMenu";
+import InnerMenu from "./../../innerMenu/innerMenu";
 
 class Main extends Component {
   state = {};

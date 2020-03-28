@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import InnerMenu from "./../innerMenu/innerMenu";
+import InnerMenu from "./../../innerMenu/innerMenu";
 
 import * as FieldTypes from "./../../handlers/dataTypeFields";
 import * as handler from "./../../handlers/handler";

@@ -38,6 +38,9 @@ class mainNav extends Component {
           <Link to="/collections">
             <li>Collections</li>
           </Link>
+          <Link to="/imageLibrary">
+            <li>Image Library</li>
+          </Link>
 
           {this.state.collections.map(collection => {
             return (

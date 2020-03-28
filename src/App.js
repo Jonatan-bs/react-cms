@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import CustomCollection from "./components/CustomCollection/CustomCollection";
 import Collections from "./components/Collections/Collections";
 import User from "./components/User/User";
+import imageLibrary from "./components/imageLibrary/imageLibrary";
 
 import Error from "./components/Error";
 
@@ -49,6 +50,7 @@ function App() {
             exact
             component={CustomCollection.Update}
           />
+          <Route path="/imageLibrary" exact component={imageLibrary.Retrieve} />
           <Route component={Error} />
         </Switch>
       </section>

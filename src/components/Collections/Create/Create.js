@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import DatatypeMenu from "./../DatatypeMenu";
+import InnerMenu from "./../innerMenu/innerMenu";
+
 import * as FieldTypes from "./../../handlers/dataTypeFields";
 import * as handler from "./../../handlers/handler";
 
@@ -41,7 +42,8 @@ class Collections extends Component {
   render() {
     return (
       <React.Fragment>
-        <DatatypeMenu addField={this.addField} />
+        <InnerMenu content="dataTypes" event={this.addField} />
+        {/* <DatatypeMenu addField={this.addField} /> */}
 
         <button onClick={this.saveCollection}>Save</button>
 

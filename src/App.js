@@ -18,7 +18,13 @@ function App() {
       <section>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/collections" exact component={Collections.Create} />
+          <Route path="/collections" exact component={Collections.Main} />
+          <Route
+            path="/collections/create"
+            exact
+            component={Collections.Create}
+          />
+
           <Route
             path="/collections/update/:id"
             exact

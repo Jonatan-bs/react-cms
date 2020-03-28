@@ -32,6 +32,9 @@ class mainNav extends Component {
     return (
       <nav>
         <ul>
+          <Link to="/user/create">
+            <li>Users</li>
+          </Link>
           <Link to="/collections">
             <li>Collections</li>
           </Link>

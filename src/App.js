@@ -4,6 +4,7 @@ import MainNav from "./components/Nav-main";
 import Home from "./components/Home";
 import CustomCollection from "./components/CustomCollection/CustomCollection";
 import Collections from "./components/Collections/Collections";
+import User from "./components/User/User";
 
 import Error from "./components/Error";
 
@@ -18,6 +19,8 @@ function App() {
       <section>
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/user/create" exact component={User.Create} />
+
           <Route path="/collections" exact component={Collections.Main} />
           <Route
             path="/collections/create"

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import DatatypeMenu from "./../DatatypeMenu";
+import DatatypeMenu from "./../Collections/DatatypeMenu";
 
 class innerMenu extends Component {
   state = { collections: [], content: "" };

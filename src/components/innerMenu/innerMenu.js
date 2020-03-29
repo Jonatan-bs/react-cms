@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import DatatypeMenu from "./../Collections/DatatypeMenu";
+import UserRolesMenu from "./../UserRole/UserRolesMenu";
 
 class innerMenu extends Component {
-  state = { collections: [], content: "" };
+  state = { collections: [], content: "", userRoles: [] };
 
   componentDidMount() {
     let content = "";
@@ -49,6 +50,8 @@ class innerMenu extends Component {
         );
       case "dataTypes":
         return <DatatypeMenu addField={this.props.event} />;
+      case "userRoles":
+        return <UserRolesMenu />;
       default:
         return null;
     }

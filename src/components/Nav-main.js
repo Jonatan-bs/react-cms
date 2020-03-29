@@ -35,6 +35,9 @@ class mainNav extends Component {
           <Link to="/user/create">
             <li>Users</li>
           </Link>
+          <Link to="/userRoles/update">
+            <li>UsersRoles</li>
+          </Link>
           <Link to="/collections">
             <li>Collections</li>
           </Link>

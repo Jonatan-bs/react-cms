@@ -80,7 +80,15 @@ export const image = props => {
           onChange={props.setValue("single")}
           checked={props.getValue("unique", "checkbox")}
         />
+        <label htmlFor="multi">Multi</label>
+        <input
+          type="checkbox"
+          name="multi"
+          onChange={props.setValue("single")}
+          checked={props.getValue("multi", "checkbox")}
+        />
       </div>
+
       <p onClick={props.removeField}>remove</p>
     </div>
   );

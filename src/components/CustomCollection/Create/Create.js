@@ -74,14 +74,19 @@ class Create extends Component {
         this.setState({ fieldsData, collectionData, fields });
       });
   }
-  imagePicker = a => {
+  imagePicker = () => {
     return e => {
+      e.preventDefault();
+
       let gallery = this.state.fields[e.target.name];
+      let fieldsData = this.state.fieldsData.find(
+        field => field.nameID === e.target.name
+      );
+
       let imagePicker =
         this.state.imagePicker[0] === e.target.name
           ? false
-          : [e.target.name, gallery];
-      e.preventDefault();
+          : [e.target.name, gallery, fieldsData.multi];
       this.setState({ imagePicker });
     };
   };
@@ -117,6 +122,7 @@ class Create extends Component {
           <ImageLibraryPicker.Retrieve
             saveGallery={this.saveGallery(this.state.imagePicker[0])}
             gallery={this.state.imagePicker[1]}
+            multi={this.state.imagePicker[2]}
           />
         ) : null}
       </React.Fragment>

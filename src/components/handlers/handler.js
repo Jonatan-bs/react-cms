@@ -17,6 +17,18 @@ export function addField(fieldType) {
           options: []
         }
       });
+    } else if (fieldType === "image") {
+      fields.push({
+        fieldType: fieldType,
+        values: {
+          name: "",
+          nameID: "",
+          multi: false,
+          required: false,
+          unique: false,
+          type: fieldType
+        }
+      });
     } else {
       fields.push({
         fieldType: fieldType,

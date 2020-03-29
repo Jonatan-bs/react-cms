@@ -4,15 +4,29 @@ export const image = (fieldData, getValue, setValue, index, imagePicker) => {
   return (
     <React.Fragment key={index}>
       <label htmlFor={fieldData.nameID}>{fieldData.nameID}</label>
-      <button
-        name={fieldData.nameID}
-        key={fieldData.nameID}
-        id={fieldData.nameID}
-        onClick={imagePicker}
-        file={getValue}
-      >
-        add images
-      </button>
+      {fieldData.multi ? (
+        <button
+          name={fieldData.nameID}
+          key={fieldData.nameID}
+          id={fieldData.nameID}
+          data-multi={false}
+          onClick={imagePicker}
+          file={getValue}
+        >
+          add images
+        </button>
+      ) : (
+        <button
+          name={fieldData.nameID}
+          data-multi={true}
+          key={fieldData.nameID}
+          id={fieldData.nameID}
+          onClick={imagePicker}
+          file={getValue}
+        >
+          add image
+        </button>
+      )}
     </React.Fragment>
   );
 };

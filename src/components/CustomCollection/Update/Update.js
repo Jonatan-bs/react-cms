@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import * as handler from "./../../handlers/handler";
 import * as fieldTypes from "./../../handlers/fieldTypes";
 import ImageLibraryPicker from "./../../ImageLibraryPicker/ImageLibraryPicker";
 class Update extends Component {
@@ -94,6 +93,7 @@ class Update extends Component {
         })();
         const fieldsData = ccData.fields;
         const fields = {};
+        console.log(collection);
 
         for (const key in collection) {
           if (key === "_id") continue;
@@ -124,12 +124,17 @@ class Update extends Component {
   }
   imagePicker = a => {
     return e => {
+      e.preventDefault();
+
       let gallery = this.state.fields[e.target.name];
+      let fieldsData = this.state.fieldsData.find(
+        field => field.nameID === e.target.name
+      );
+
       let imagePicker =
         this.state.imagePicker[0] === e.target.name
           ? false
-          : [e.target.name, gallery];
-      e.preventDefault();
+          : [e.target.name, gallery, fieldsData.multi];
       this.setState({ imagePicker });
     };
   };
@@ -163,6 +168,7 @@ class Update extends Component {
           <ImageLibraryPicker.Retrieve
             saveGallery={this.saveGallery(this.state.imagePicker[0])}
             gallery={this.state.imagePicker[1]}
+            multi={this.state.imagePicker[2]}
           />
         ) : null}
       </React.Fragment>

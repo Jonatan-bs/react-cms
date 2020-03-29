@@ -5,7 +5,8 @@ class ImgPicker extends Component {
     images: [],
     menu: {},
     activeIndex: [],
-    gallery: []
+    gallery: [],
+    multi: false
   };
 
   init = () => {
@@ -22,8 +23,12 @@ class ImgPicker extends Component {
           let index = images.findIndex(img => img._id === image.imageID);
           gallery.push({ index: index, caption: image.caption });
         });
-
-        this.setState({ images, gallery });
+        const multi = this.props.multi;
+        let activeIndex = [];
+        if (!multi && gallery.length > 0) {
+          activeIndex.push(gallery[0].index);
+        }
+        this.setState({ images, gallery, multi, activeIndex });
       });
   };
 
@@ -36,30 +41,47 @@ class ImgPicker extends Component {
   Images = () => {
     return this.state.images.map((image, index) => {
       let isActive = this.state.activeIndex.includes(index);
+      let multi = this.state.multi;
       let isInGallery = this.state.gallery.find(image => image.index === index);
-
-      return isInGallery ? null : (
-        <div
-          key={index}
-          className={isActive ? "libImg active" : "libImg"}
-          onClick={this.setActiveImg(index)}
-        >
-          <img
-            src={"http://localhost:4000/admin/uploads/" + image.filename}
-            alt={image.alt}
-          />
-        </div>
-      );
+      if (!multi) {
+        return (
+          <div
+            key={index}
+            className={isActive ? "libImg active" : "libImg"}
+            onClick={this.setActiveImg(index)}
+          >
+            <img
+              src={"http://localhost:4000/admin/uploads/" + image.filename}
+              alt={image.alt}
+            />
+          </div>
+        );
+      } else if (!isInGallery && multi) {
+        return (
+          <div
+            key={index}
+            className={isActive ? "libImg active" : "libImg"}
+            onClick={this.setActiveImg(index)}
+          >
+            <img
+              src={"http://localhost:4000/admin/uploads/" + image.filename}
+              alt={image.alt}
+            />
+          </div>
+        );
+      }
     });
   };
 
   setActiveImg = index => {
     return event => {
       let activeIndex = [...this.state.activeIndex];
+
       const i = activeIndex.indexOf(index);
       if (i > -1) {
         activeIndex.splice(i, 1);
       } else {
+        if (!this.state.multi) activeIndex = [];
         activeIndex.push(index);
       }
 
@@ -137,10 +159,17 @@ class ImgPicker extends Component {
   };
   saveGallery = () => {
     let gallery = [];
-    this.state.gallery.forEach(image => {
-      let imageID = this.state.images[image.index]._id;
-      gallery.push({ caption: image.caption, imageID: imageID });
-    });
+
+    if (!this.state.multi) {
+      let activeIndex = this.state.activeIndex;
+      let image = this.state.images[activeIndex];
+      if (image) gallery.push({ caption: image.caption, imageID: image._id });
+    } else {
+      this.state.gallery.forEach(image => {
+        let imageID = this.state.images[image.index]._id;
+        gallery.push({ caption: image.caption, imageID: imageID });
+      });
+    }
     this.props.saveGallery(gallery);
   };
 
@@ -153,11 +182,19 @@ class ImgPicker extends Component {
         <div className="libImages">
           <this.Images />
         </div>
-        <button onClick={this.addToGallery}>Add to gallery</button>
-        <div className="chosenGallery">
-          <this.ChosenGallery />
-        </div>
-        <button onClick={this.saveGallery}>Save Gallery</button>
+        {this.state.multi ? (
+          <React.Fragment>
+            <button onClick={this.addToGallery}>Add to gallery</button>
+            <div className="chosenGallery">
+              <this.ChosenGallery />
+            </div>
+            <button onClick={this.saveGallery}>Save Gallery</button>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <button onClick={this.saveGallery}>Choose Image</button>
+          </React.Fragment>
+        )}
       </div>
     );
   }

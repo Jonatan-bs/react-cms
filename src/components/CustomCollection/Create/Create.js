@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import * as handler from "./../../handlers/handler";
 import * as fieldTypes from "./../../handlers/fieldTypes";
-
+import ImageLibraryPicker from "./../../ImageLibraryPicker/ImageLibraryPicker";
 class Create extends Component {
   state = {
     collectionData: { name: "", nameID: "", description: "" },
     fields: [],
-    fieldsData: []
+    fieldsData: [],
+    imagePicker: false
   };
 
   addField = handler.addField.bind(this);
@@ -55,7 +56,11 @@ class Create extends Component {
         let fields = {};
 
         fieldsData.forEach(field => {
-          fields[field.nameID] = "";
+          if (field.type === "image") {
+            fields[field.nameID] = [];
+          } else {
+            fields[field.nameID] = "";
+          }
         });
 
         const collectionData = {
@@ -66,6 +71,26 @@ class Create extends Component {
         this.setState({ fieldsData, collectionData, fields });
       });
   }
+  imagePicker = a => {
+    return e => {
+      let gallery = this.state.fields[e.target.name];
+      let imagePicker =
+        this.state.imagePicker[0] === e.target.name
+          ? false
+          : [e.target.name, gallery];
+      e.preventDefault();
+      this.setState({ imagePicker });
+    };
+  };
+  saveGallery = nameID => {
+    return gallery => {
+      let fields = this.state.fields;
+      fields[nameID] = gallery;
+
+      let imagePicker = false;
+      this.setState({ fields, imagePicker });
+    };
+  };
   render() {
     return (
       <React.Fragment>
@@ -79,10 +104,18 @@ class Create extends Component {
                 ? this.state.fields[fieldData.nameID]
                 : "",
               this.setValue(fieldData.nameID),
-              index
+              index,
+              this.imagePicker(fieldData)
             );
           })}
         </form>
+
+        {this.state.imagePicker ? (
+          <ImageLibraryPicker.Retrieve
+            saveGallery={this.saveGallery(this.state.imagePicker[0])}
+            gallery={this.state.imagePicker[1]}
+          />
+        ) : null}
       </React.Fragment>
     );
   }

@@ -20,3 +20,28 @@ ul {
   margin: 0;
   padding: 0;
 }
+
+.libImg {
+  height: 200px;
+  border: 2px solid #222;
+  box-sizing: border-box;
+  margin-right: 10px;
+}
+.libImg img {
+  height: 100%;
+}
+.libImg.active {
+  border: 5px solid blue;
+}
+.libImages {
+  display: flex;
+  flex-wrap: wrap;
+}
+.chosenGallery img {
+  height: 100px;
+  margin-right: 10px;
+}
+.chosenGallery {
+  display: flex;
+  flex-wrap: wrap;
+}

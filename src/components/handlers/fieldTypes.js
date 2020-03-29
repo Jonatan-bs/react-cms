@@ -1,5 +1,22 @@
 import React from "react";
 
+export const image = (fieldData, getValue, setValue, index, imagePicker) => {
+  return (
+    <React.Fragment key={index}>
+      <label htmlFor={fieldData.nameID}>{fieldData.nameID}</label>
+      <button
+        name={fieldData.nameID}
+        key={fieldData.nameID}
+        id={fieldData.nameID}
+        onClick={imagePicker}
+        file={getValue}
+      >
+        add images
+      </button>
+    </React.Fragment>
+  );
+};
+
 export const string = (fieldData, getValue, setValue, index) => {
   return (
     <React.Fragment key={index}>
@@ -27,22 +44,6 @@ export const text = (fieldData, getValue, setValue, index) => {
         onChange={setValue}
         value={getValue}
       ></textarea>
-    </React.Fragment>
-  );
-};
-
-export const image = (fieldData, getValue, setValue, index) => {
-  return (
-    <React.Fragment key={index}>
-      <label htmlFor={fieldData.nameID}>{fieldData.nameID}</label>
-      <input
-        name={fieldData.nameID}
-        type="file"
-        key={fieldData.nameID}
-        id={fieldData.nameID}
-        onChange={setValue}
-        file={getValue}
-      ></input>
     </React.Fragment>
   );
 };

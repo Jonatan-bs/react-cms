@@ -56,7 +56,8 @@ class Retrieve extends Component {
     image = {
       name: image.name,
       alt: image.alt,
-      description: image.description
+      description: image.description,
+      caption: image.caption
     };
     fetch("http://localhost:4000/admin/imageLibrary/update/" + id, {
       method: "post",
@@ -64,6 +65,17 @@ class Retrieve extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(image)
+    })
+      .then(response => response.json())
+      .then(response => console.log(response))
+      .catch(err => console.log(err));
+  };
+  addImage = event => {
+    let form = document.getElementById("addImage");
+    const formData = new FormData(form);
+    fetch("http://localhost:4000/admin/imageLibrary/create", {
+      method: "post",
+      body: formData
     })
       .then(response => response.json())
       .then(response => console.log(response))
@@ -88,6 +100,11 @@ class Retrieve extends Component {
         />
         <input
           type="text"
+          value={imgInfo.caption}
+          onChange={this.setValue("caption")}
+        />
+        <input
+          type="text"
           value={imgInfo.description}
           onChange={this.setValue("description")}
         />
@@ -101,6 +118,9 @@ class Retrieve extends Component {
   render() {
     return (
       <div id="libWrap">
+        <form id="addImage">
+          <input type="file" name="image" onChange={this.addImage} />
+        </form>
         <div className="libImages">
           <this.Images />
         </div>

@@ -24,11 +24,14 @@ class Create extends Component {
 
   createDocument = e => {
     const collection = this.props.match.params.collection;
-    const form = document.getElementById("createDocument");
-    const formData = new FormData(form);
+    const fields = this.state.fields;
+
     fetch("http://localhost:4000/admin/cc/" + collection + "/create", {
       method: "post",
-      body: formData
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(fields)
     })
       .then(response => response.json())
 

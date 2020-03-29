@@ -91,13 +91,17 @@ class Retrieve extends Component {
                   "image" ? (
                   <React.Fragment key={index}>
                     <p>{this.state.rewriteObj[label]}</p>
-                    <img
-                      alt=""
-                      src={
-                        "http://localhost:4000/admin/uploads/" +
-                        document[label].filename
-                      }
-                    />
+                    {document[label].map((img, index) => {
+                      return (
+                        <img
+                          alt={img.alt}
+                          src={
+                            "http://localhost:4000/admin/uploads/" +
+                            img.imageID.filename
+                          }
+                        />
+                      );
+                    })}
                   </React.Fragment>
                 ) : (
                   <React.Fragment key={index}>
@@ -105,7 +109,7 @@ class Retrieve extends Component {
                     <p>{document[label]}</p>
                   </React.Fragment>
                 )
-              )}{" "}
+              )}
             </div>
           </Link>
         </React.Fragment>

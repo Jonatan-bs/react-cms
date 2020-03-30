@@ -43,49 +43,49 @@ class Collections extends Component {
     return (
       <React.Fragment>
         <InnerMenu content="dataTypes" event={this.addField} />
-        {/* <DatatypeMenu addField={this.addField} /> */}
+        <section className="innerMenuContent">
+          <button onClick={this.saveCollection}>Save</button>
 
-        <button onClick={this.saveCollection}>Save</button>
+          <div id="createCollection">
+            <div className="autoNameId">
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                id="catName"
+                onChange={this.setValueMain("name", true)}
+                value={this.state.collectionData.name}
+              />
 
-        <div id="createCollection">
-          <div className="autoNameId">
-            <label htmlFor="name">Name</label>
+              <label htmlFor="nameID">Name ID</label>
+              <input
+                type="text"
+                id="catNameID"
+                onChange={this.setValueMain("nameID")}
+                value={this.state.collectionData.nameID}
+              />
+            </div>
+            <label htmlFor="description">Description</label>
             <input
               type="text"
-              id="catName"
-              onChange={this.setValueMain("name", true)}
-              value={this.state.collectionData.name}
-            />
-
-            <label htmlFor="nameID">Name ID</label>
-            <input
-              type="text"
-              id="catNameID"
-              onChange={this.setValueMain("nameID")}
-              value={this.state.collectionData.nameID}
+              id="catDescription"
+              onChange={this.setValueMain("description")}
+              value={this.state.collectionData.description}
             />
           </div>
-          <label htmlFor="description">Description</label>
-          <input
-            type="text"
-            id="catDescription"
-            onChange={this.setValueMain("description")}
-            value={this.state.collectionData.description}
-          />
-        </div>
-        <div id="fields">
-          {this.state.fields.map((field, index) => {
-            return React.createElement(FieldTypes[field.fieldType], {
-              removeField: this.removeField(index),
-              setValue: this.setValue(index),
-              getValue: this.getValue(index),
-              addGroup: this.addGroup(index),
-              removeGroup: this.removeGroup(index),
-              options: this.state.fields[index].values.options,
-              key: index
-            });
-          })}
-        </div>
+          <div id="fields">
+            {this.state.fields.map((field, index) => {
+              return React.createElement(FieldTypes[field.fieldType], {
+                removeField: this.removeField(index),
+                setValue: this.setValue(index),
+                getValue: this.getValue(index),
+                addGroup: this.addGroup(index),
+                removeGroup: this.removeGroup(index),
+                options: this.state.fields[index].values.options,
+                key: index
+              });
+            })}
+          </div>
+        </section>
       </React.Fragment>
     );
   }

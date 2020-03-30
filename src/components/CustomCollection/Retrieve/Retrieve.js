@@ -6,11 +6,9 @@ class Retrieve extends Component {
 
   updateState(props) {
     let collection;
-    if (props) {
-      collection = props.match.params.collection;
-    } else {
-      collection = this.props.match.params.collection;
-    }
+
+    collection = this.props.match.params.collection;
+
     Promise.all([
       fetch("http://localhost:4000/admin/cc/" + collection, {
         method: "post",
@@ -69,10 +67,12 @@ class Retrieve extends Component {
       .catch(err => console.log(err));
   }
 
-  componentWillReceiveProps(props) {
-    this.updateState(props);
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      this.updateState();
+    }
   }
-  componentDidMount() {
+  componentDidMount(prevProps) {
     this.updateState();
   }
 
@@ -94,6 +94,7 @@ class Retrieve extends Component {
                     {document[label].map((img, index) => {
                       return (
                         <img
+                          key={index}
                           alt={img.alt}
                           src={
                             "http://localhost:4000/admin/uploads/" +

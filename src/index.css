@@ -21,6 +21,22 @@ ul {
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+button {
+  padding: 10px;
+  background: #3c5ebe;
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+}
+button:hover {
+  background: #27418b;
+}
 .libImg {
   height: 200px;
   border: 2px solid #222;

@@ -2,16 +2,20 @@ import React, { Component } from "react";
 
 class Retrieve extends Component {
   state = { images: [], menu: {}, activeIndex: null };
-  componentDidMount() {
+  loadImgs = () => {
     fetch("http://localhost:4000/admin/imageLibrary", {
       method: "post"
     })
       .then(response => response.json())
       .then(response => {
-        let images = [...this.state.images];
+        let images = [];
         images.push(...response);
         this.setState({ images });
       });
+  };
+
+  componentDidMount() {
+    this.loadImgs();
   }
   Images = () => {
     return this.state.images.map((image, index) => {
@@ -48,7 +52,7 @@ class Retrieve extends Component {
       this.setState({ images });
     };
   };
-  updateImg = () => {
+  updateImgData = () => {
     let images = [...this.state.images];
     let image = images[this.state.activeIndex];
     const id = image._id;
@@ -77,8 +81,9 @@ class Retrieve extends Component {
       method: "post",
       body: formData
     })
-      .then(response => response.json())
-      .then(response => console.log(response))
+      .then(response => {
+        this.loadImgs();
+      })
       .catch(err => console.log(err));
   };
   Menu = () => {
@@ -108,7 +113,7 @@ class Retrieve extends Component {
           value={imgInfo.description}
           onChange={this.setValue("description")}
         />
-        <button type="text" onClick={this.updateImg}>
+        <button type="text" onClick={this.updateImgData}>
           Update
         </button>
       </React.Fragment>

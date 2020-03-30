@@ -1,3 +1,11 @@
-.App {
-  text-align: center;
+.mainContent {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 30px 30px 30px 320px;
+}
+.innerMenuContent {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 30px 30px 30px 190px;
 }

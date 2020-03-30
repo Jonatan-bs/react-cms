@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import "./Nav-main.css";
 
 class mainNav extends Component {
   state = {
@@ -30,7 +31,7 @@ class mainNav extends Component {
 
   render() {
     return (
-      <nav>
+      <nav className="Nav-main">
         <ul>
           <Link to="/user/create">
             <li>Users</li>

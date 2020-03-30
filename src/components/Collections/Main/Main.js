@@ -7,10 +7,12 @@ class Main extends Component {
   render() {
     return (
       <React.Fragment>
-        <InnerMenu content="collections" />
-        <Link to="/collections/create">
-          <button>Add new collection</button>
-        </Link>
+        <section className="innerMenuContent">
+          <InnerMenu content="collections" />
+          <Link to="/collections/create">
+            <button>Add new collection</button>
+          </Link>
+        </section>
       </React.Fragment>
     );
   }

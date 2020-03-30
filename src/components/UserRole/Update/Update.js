@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import UserRolesMenu from "./../UserRolesMenu";
+import InnerMenu from "./../../innerMenu/innerMenu";
 
 class Update extends Component {
   state = { collections: [], userRole: {}, permissions: [], userRoles: [] };
@@ -114,66 +114,72 @@ class Update extends Component {
       .catch(err => console.log(err));
   };
   render() {
-    return (
+    return this.state.collections.length === 0 ? (
+      <p>There has to be at least one collection, to set permissions</p>
+    ) : (
       <React.Fragment>
-        <UserRolesMenu
-          setUserRole={this.setUserRole}
-          userRoles={this.state.userRoles}
-        />
-        <p>{this.state.userRole.name}</p>
-        {this.state.collections.map((collection, index) => {
-          return (
-            <div key={"col" + index}>
-              <p>{collection.name}</p>
+        <section className="innerMenuContent">
+          <InnerMenu
+            content="userRoles"
+            setUserRole={this.setUserRole}
+            userRoles={this.state.userRoles}
+          />
 
-              <label htmlFor={"find" + index}>find</label>
-              <input
-                type="checkbox"
-                value="find"
-                id={"find" + index}
-                checked={this.getValue(collection._id, "find")}
-                onChange={this.setValue(collection._id, "find")}
-              />
+          <p>{this.state.userRole.name}</p>
+          {this.state.collections.map((collection, index) => {
+            return (
+              <div key={"col" + index}>
+                <p>{collection.name}</p>
 
-              <label htmlFor={"findOne" + index}>findOne</label>
-              <input
-                type="checkbox"
-                value="findOne"
-                id={"findOne" + index}
-                checked={this.getValue(collection._id, "findOne")}
-                onChange={this.setValue(collection._id, "findOne")}
-              />
+                <label htmlFor={"find" + index}>find</label>
+                <input
+                  type="checkbox"
+                  value="find"
+                  id={"find" + index}
+                  checked={this.getValue(collection._id, "find")}
+                  onChange={this.setValue(collection._id, "find")}
+                />
 
-              <label htmlFor={"create" + index}>create</label>
-              <input
-                type="checkbox"
-                value="create"
-                id={"create" + index}
-                checked={this.getValue(collection._id, "create")}
-                onChange={this.setValue(collection._id, "create")}
-              />
+                <label htmlFor={"findOne" + index}>findOne</label>
+                <input
+                  type="checkbox"
+                  value="findOne"
+                  id={"findOne" + index}
+                  checked={this.getValue(collection._id, "findOne")}
+                  onChange={this.setValue(collection._id, "findOne")}
+                />
 
-              <label htmlFor={"delete" + index}>delete</label>
-              <input
-                type="checkbox"
-                value="delete"
-                id={"delete" + index}
-                checked={this.getValue(collection._id, "delete")}
-                onChange={this.setValue(collection._id, "delete")}
-              />
+                <label htmlFor={"create" + index}>create</label>
+                <input
+                  type="checkbox"
+                  value="create"
+                  id={"create" + index}
+                  checked={this.getValue(collection._id, "create")}
+                  onChange={this.setValue(collection._id, "create")}
+                />
 
-              <label htmlFor={"update" + index}>update</label>
-              <input
-                type="checkbox"
-                value="update"
-                id={"update" + index}
-                checked={this.getValue(collection._id, "update")}
-                onChange={this.setValue(collection._id, "update")}
-              />
-            </div>
-          );
-        })}
-        <button onClick={this.updateRole}>update role</button>
+                <label htmlFor={"delete" + index}>delete</label>
+                <input
+                  type="checkbox"
+                  value="delete"
+                  id={"delete" + index}
+                  checked={this.getValue(collection._id, "delete")}
+                  onChange={this.setValue(collection._id, "delete")}
+                />
+
+                <label htmlFor={"update" + index}>update</label>
+                <input
+                  type="checkbox"
+                  value="update"
+                  id={"update" + index}
+                  checked={this.getValue(collection._id, "update")}
+                  onChange={this.setValue(collection._id, "update")}
+                />
+              </div>
+            );
+          })}
+          <button onClick={this.updateRole}>update role</button>
+        </section>
       </React.Fragment>
     );
   }

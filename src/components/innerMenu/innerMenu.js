@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import DatatypeMenu from "./../Collections/DatatypeMenu";
-import UserRolesMenu from "./../UserRole/UserRolesMenu";
+// import UserRolesMenu from "./../UserRole/UserRolesMenu";
+import "./innerMenu.css";
 
 class innerMenu extends Component {
   state = { collections: [], content: "", userRoles: [] };
@@ -33,7 +34,7 @@ class innerMenu extends Component {
     switch (this.state.content) {
       case "collections":
         return (
-          <nav className="innerMenu">
+          <nav>
             <ul>
               {this.state.collections.map(collection => {
                 return (
@@ -51,13 +52,29 @@ class innerMenu extends Component {
       case "dataTypes":
         return <DatatypeMenu addField={this.props.event} />;
       case "userRoles":
-        return <UserRolesMenu />;
+        return (
+          <div id="sidemenu" className="fieldTypes">
+            <ul>
+              {this.props.userRoles.map((role, index) => {
+                return (
+                  <li key={index} onClick={this.props.setUserRole(role)}>
+                    {role.name}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
       default:
         return null;
     }
   };
   render() {
-    return <this.Content />;
+    return (
+      <div className="innerMenu">
+        <this.Content />
+      </div>
+    );
   }
 }
 

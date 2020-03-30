@@ -8,7 +8,17 @@ class ImgPicker extends Component {
     gallery: [],
     multi: false
   };
-
+  // loadImgs = () => {
+  //   fetch("http://localhost:4000/admin/imageLibrary", {
+  //     method: "post"
+  //   })
+  //     .then(response => response.json())
+  //     .then(response => {
+  //       let images = [];
+  //       images.push(...response);
+  //       this.setState({ images });
+  //     });
+  // };
   init = () => {
     fetch("http://localhost:4000/admin/imageLibrary", {
       method: "post"
@@ -35,8 +45,10 @@ class ImgPicker extends Component {
   componentDidMount() {
     this.init();
   }
-  componentWillReceiveProps() {
-    this.init();
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps !== this.props) {
+      this.init();
+    }
   }
   Images = () => {
     return this.state.images.map((image, index) => {
@@ -70,6 +82,7 @@ class ImgPicker extends Component {
           </div>
         );
       }
+      return null;
     });
   };
 
@@ -96,8 +109,10 @@ class ImgPicker extends Component {
       method: "post",
       body: formData
     })
-      .then(response => response.json())
-      .then(response => console.log(response))
+      .then(response => {
+        this.init();
+      })
+
       .catch(err => console.log(err));
   };
 

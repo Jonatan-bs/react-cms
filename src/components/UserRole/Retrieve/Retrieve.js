@@ -69,7 +69,7 @@ class Retrieve extends Component {
       .catch(err => console.log(err));
   }
 
-  componentWillReceiveProps(props) {
+  componentDidUpdate(props) {
     this.updateState(props);
   }
   componentDidMount() {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import InnerMenu from "./../../innerMenu/innerMenu";
+// import InnerMenu from "./../../innerMenu/innerMenu";
 
 class Create extends Component {
   state = {
@@ -44,7 +44,7 @@ class Create extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        query: { name: { $ne: "master" } },
+        query: { name: { $nin: ["master", "public"] } },
         fields: "-__v ",
         options: null
       })
@@ -61,7 +61,6 @@ class Create extends Component {
   render() {
     return (
       <React.Fragment>
-        <InnerMenu content="" />
         <button onClick={this.createUser}>Create User</button>
         <label htmlFor="firstname">First name</label>
         <input
